@@ -44,16 +44,19 @@ class App extends Component {
         </select>
       </div> 
       <div className="cards">
-        {console.log(this.status.items)}
+        {
+          this.state.items.map((elemento) => 
             <div className="card" style={{width:"18rem"}}>
-              <img src="" className="card-img-top" alt="foto-principal" />
+              <img src={elemento.principal_photo} className="card-img-top" alt="foto-principal" />
                 <div className="card-body">
-                  <h5 className="card-title"></h5>
+                  <h5 className="card-title">{elemento.name} - {elemento.city_names}</h5>
                     <p className="activities">Actividades:
-                    
+                    {elemento.activities.map((actividad) =>
+                     <p>{actividad.name},</p>
+                    )}
                     </p>
-                    <p className="">Desde <span> s/. </span></p>
-                    <p className=""></p>
+                    <p className="">Desde <span> s/. {elemento.price}</span></p>
+                    <p className="">{elemento.days_and_nights}</p>
                 </div>
             </div> 
           )
