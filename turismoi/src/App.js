@@ -5,8 +5,28 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: []
+      items: [],
+      termino: '',
+      itemsFilter: [],
+      value:''
     }
+    this.searchValue = this.searchValue.bind(this);
+    this.selectValue = this.selectValue.bind(this);
+  }
+
+  searchValue(string){
+    let regex = new RegExp(string, 'i');
+    let dataFilter = this.state.items.filter(ele => 
+    regex.test(ele.city_names));
+    this.setState({
+      termino: string,
+      itemsFilter: dataFilter
+    });
+  }
+
+  selectValue(string){
+    console.log(string)
+    
   }
 
   componentDidMount() {
@@ -19,7 +39,8 @@ class App extends Component {
     .then(json => { 
       console.log('soy data', json)
       this.setState({
-        items: json.packages
+        items: json.packages,
+        itemsFilter: json.packages
       })
     });
   }
@@ -30,22 +51,21 @@ class App extends Component {
       <div className="search"> 
         <form role="search">
           <div className="col-3">
-            <input className="form-control" type="search"
-              placeholder="Buscar en el sitio..." />
-            <button type="button" className="btn btn-primary">Buscar</button>
+            <input className="form-control" type="search" onChange={term => this.searchValue(term.target.value)}
+              placeholder="Buscar por región..." />
           </div>
         </form>
       </div>
       <div className="order">
-        <select name="Order" className="custom-select col-md-1 mb-1">
-          <option className="d-none" value="">Order</option> 
+        <select name="Orden" className="custom-select col-md-1 mb-1" onChange={val => this.selectValue(val.target.value)}>
+          <option className="d-none" >Orden</option> 
           <option value="precio">Precio</option> 
           <option value="dias">Días</option>
         </select>
       </div> 
       <div className="cards">
         {
-          this.state.items.map((elemento) => 
+          this.state.itemsFilter.map((elemento) => 
             <div className="card" style={{width:"18rem"}}>
               <img src={elemento.principal_photo} className="card-img-top" alt="foto-principal" />
                 <div className="card-body">
