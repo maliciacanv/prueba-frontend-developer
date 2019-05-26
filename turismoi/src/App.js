@@ -1,90 +1,94 @@
-import React, {Component} from 'react';
+// import React, {Component} from 'react';
 import './App.scss';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [],
-      termino: '',
-      itemsFilter: [],
-      value:''
-    }
-    this.searchValue = this.searchValue.bind(this);
-    this.selectValue = this.selectValue.bind(this);
-  }
+import React, { useState, useEffect } from 'react';
 
-  searchValue(string){
-    let regex = new RegExp(string, 'i');
-    let dataFilter = this.state.items.filter(ele => 
-    regex.test(ele.city_names));
-    this.setState({
-      termino: string,
-      itemsFilter: dataFilter
-    });
+  const useFetch = (url, auth) => {
+    const [data, setData] = useState([]);
+    useEffect( () => {
+      fetch(url, auth)
+      .then(res => res.json())
+      .then(data => setData(data.packages));
+    }, []);
+    return data;
   }
-
-  selectValue(string){
-    console.log(string)
-    
-  }
-
-  componentDidMount() {
+  
+  const sortPrices = (data) => data.sort((aa,bb) => aa.price > bb.price ? 1 :-1);
+ 
+  const sortDays = (data) => data.sort((aa,bb) => aa.days_and_nights > bb.days_and_nights ? 1 :-1);
+  
+  const Container = () =>  {
     const myHeaders = new Headers({
-      'Content-Type':'application/json',
-      'Authorization':'Token token=f2b15a0105d45'
+       'Content-Type':'application/json',
+       'Authorization':'Token token=f2b15a0105d45'
     });
-    fetch('https://turismoi.pe/api/v1/packages.json', { method: 'GET',headers: myHeaders })
-    .then(res => res.json())
-    .then(json => { 
-      console.log('soy data', json)
-      this.setState({
-        items: json.packages,
-        itemsFilter: json.packages
-      })
-    });
-  }
+    const data = useFetch('https://turismoi.pe/api/v1/packages.json', { method: 'GET',headers: myHeaders });
+    
+    const [termino, setTermino] = useState('');
+    const [result, setResult] = useState([]);
+    const [valueSelect, setValueSelect] = useState('');
 
-  render() {
+    const searchValue = (string) => {
+        let regex = new RegExp(string, 'i');
+        let filtered = data.filter(item => regex.test(item.city_names));
+        setResult(filtered);
+        setTermino(string);
+    }
+    const dataContainer = termino === '' ? data : result
+
+    const orderValue = (string) => {
+      if(string === 'precio'){
+        setResult(sortPrices(data))
+      } else if(string === 'dias'){
+        setResult(sortDays(data))
+      }
+     setValueSelect(string)
+    }
+
     return (
       <>
-      <div className="search"> 
-        <form role="search">
-          <div className="col-3">
-            <input className="form-control" type="search" onChange={term => this.searchValue(term.target.value)}
-              placeholder="Buscar por región..." />
-          </div>
-        </form>
-      </div>
-      <div className="order">
-        <select name="Orden" className="custom-select col-md-1 mb-1" onChange={val => this.selectValue(val.target.value)}>
-          <option className="d-none" >Orden</option> 
-          <option value="precio">Precio</option> 
-          <option value="dias">Días</option>
-        </select>
-      </div> 
-      <div className="cards">
-        {
-          this.state.itemsFilter.map((elemento) => 
-            <div className="card" style={{width:"18rem"}}>
-              <img src={elemento.principal_photo} className="card-img-top" alt="foto-principal" />
-                <div className="card-body">
-                  <h5 className="card-title">{elemento.name} - {elemento.city_names}</h5>
-                    <p className="activities">Actividades:
-                    {elemento.activities.map((actividad) =>
-                     <p>{actividad.name},</p>
-                    )}
-                    </p>
-                    <p className="">Desde <span> s/. {elemento.price}</span></p>
-                    <p className="">{elemento.days_and_nights}</p>
-                </div>
-            </div> 
-          )
-        }
-      </div>
+        <div className="search"> 
+          <form role="search">
+            <div className="col-3">
+              <input className="form-control" type="search" onChange = {term => searchValue(term.target.value)}
+                placeholder="Buscar por región..." />
+            </div>
+          </form>
+        </div>
+
+        <div className="order">
+          <select name="Orden" className="custom-select col-md-1 mb-1" onChange = {val => orderValue(val.target.value)} >
+            <option className="d-none" >Orden</option> 
+            <option value="precio">Precio</option> 
+            <option value="dias">Días</option>
+          </select>
+        </div> 
+
+        <div className="cards">
+          {dataContainer.map(element => (
+          <div className="card" style={{width:"18rem"}}>
+            <img src = {element.principal_photo} className="card-img-top " alt="foto-principal" />
+              <div className="card-body">
+                <h5 className="card-title">{element.name} - {element.city_names}</h5>
+                  <p className="activities">Actividades:
+                    {element.activities.map(item => (
+                      <p>{item.name}</p>
+                    ))}
+                  </p>
+                    <p className="">Desde <span> s/.{element.price} </span></p>
+                    <p className="">{element.days_and_nights}</p>
+              </div> 
+          </div> 
+          ))} 
+        </div>
       </>
     );
   }
-}
 
-export default App;
+  const App = () => (
+    <div>
+      <Container />
+    </div>
+  )
+
+  export default App;
