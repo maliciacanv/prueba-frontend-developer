@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import LazyLoad from 'react-lazyload';
 
 import ImgLazyLoad from './component/lazyload';
-import './App.css';
+import './App.scss';
 import { useFetch, sortPrices, sortDays, searchTour } from './component/functions'
   
   const Container = () =>  {
@@ -14,7 +14,8 @@ import { useFetch, sortPrices, sortDays, searchTour } from './component/function
     
     const [termino, setTermino] = useState('');
     const [result, setResult] = useState([]);
-
+    const [selectValue, setSelectValue] = useState('')
+ 
     const searchValue = (string) => {
         setResult(searchTour(string, data));
         setTermino(string);
@@ -27,6 +28,7 @@ import { useFetch, sortPrices, sortDays, searchTour } from './component/function
       } else if(string === 'dias'){
         setResult(sortDays(data))
       }
+      setSelectValue(string);
     }
 
     return (
@@ -49,11 +51,11 @@ import { useFetch, sortPrices, sortDays, searchTour } from './component/function
         <div className="cards">
           {dataContainer.map(element => (
           <div className="card" style={{width:"18rem"}}>
-            <LazyLoad 
+            <LazyLoad
             once
             placeholder = { 
             <ImgLazyLoad /> }
-            debounce = {100}
+            debounce = {600}
             >
             <img src = {element.principal_photo} className="card-img-top " alt="foto-principal" />
             </LazyLoad>

@@ -1,0 +1,89 @@
+     $colorFontOpacity: rgb(107, 106, 106);
+     $colorFont: rgb(155, 153, 153);
+     $colorOrangeFont: #ff7200;
+     
+     @media (min-width:320px ){
+            .search, .order {
+                width: 100%;
+             }
+             .form{
+               margin-top: 20px;
+             } 
+             .search, .order {
+               width: 100%;
+            }
+            .form{
+               margin-top: 20px;
+            }
+            .form-control{
+               border-radius: 50px;
+               margin: auto;
+               width: 220px;
+            }
+            .form-control input{
+               border: solid 1px white;
+            }
+            .fas{
+               opacity: 0.5;
+            }
+            .custom-select{
+               margin-left: 15%;
+               margin-top: 5px;
+               border: none;
+               width: 100px;
+            }
+            .cards{
+               display: flex;
+               flex-wrap: wrap;
+               justify-content: center;
+               margin-top: 10px;
+               margin-right: 0%;
+               margin-left: 0%;
+            }
+            .card{
+               margin: 10px;
+            }
+             .card-body .card-title{
+                color: $colorFontOpacity;
+            }
+            
+            .activities{
+                color: $colorFont;
+            }
+            .activities span{
+                color: $colorFontOpacity;
+                margin: 0%;
+            }
+            .footer-container{
+               margin-top: 0px;
+            }
+            .footer-card{
+               display: flex; 
+            }
+            .price-card{
+               width: 30%;
+            }
+            .price-text small{
+             color: $colorFont;
+             margin-left: 84%;
+            }
+       
+            .price{
+               color: $colorOrangeFont;
+               font-size: 1.5rem;
+               margin-right: 10px;
+               float: right;
+            }
+            .day-card{
+               color: $colorFontOpacity;
+               width: 70%;
+            }
+            .day{
+               margin-top: 7px;
+               margin-left: 22px;
+            }
+      }
+      
+      
+
+      
