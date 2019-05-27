@@ -6,16 +6,16 @@
             margin-top: 20px;
 
          }
-         .input{ 
-            margin: auto;
-         }
          .form-control{
             border-radius: 50px;
             margin: auto;
-            width: 200px;
+            width: 220px;
          }
-         .fas {
-            float: right;
+         .form-control input{
+            border: none;
+         }
+         .fas{
+            opacity: 0.5;
          }
          .custom-select{
             margin-left: 15%;
