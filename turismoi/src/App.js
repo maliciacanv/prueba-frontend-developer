@@ -1,21 +1,6 @@
-// import React, {Component} from 'react';
-import './App.scss';
-
-import React, { useState, useEffect } from 'react';
-
-  const useFetch = (url, auth) => {
-    const [data, setData] = useState([]);
-    useEffect( () => {
-      fetch(url, auth)
-      .then(res => res.json())
-      .then(data => setData(data.packages));
-    }, []);
-    return data;
-  }
-  
-  const sortPrices = (data) => data.sort((aa,bb) => aa.price > bb.price ? 1 :-1);
- 
-  const sortDays = (data) => data.sort((aa,bb) => aa.days_and_nights > bb.days_and_nights ? 1 :-1);
+import React, { useState} from 'react';
+import './App.css';
+import { useFetch, sortPrices, sortDays, searchTour } from './component/functions'
   
   const Container = () =>  {
     const myHeaders = new Headers({
@@ -29,12 +14,10 @@ import React, { useState, useEffect } from 'react';
     const [valueSelect, setValueSelect] = useState('');
 
     const searchValue = (string) => {
-        let regex = new RegExp(string, 'i');
-        let filtered = data.filter(item => regex.test(item.city_names));
-        setResult(filtered);
+        setResult(searchTour(string, data));
         setTermino(string);
     }
-    const dataContainer = termino === '' ? data : result
+    const dataContainer = termino === '' ? data : result;
 
     const orderValue = (string) => {
       if(string === 'precio'){
@@ -47,42 +30,51 @@ import React, { useState, useEffect } from 'react';
 
     return (
       <>
-        <div className="search"> 
-          <form role="search">
-            <div className="col-3">
-              <input className="form-control" type="search" onChange = {term => searchValue(term.target.value)}
+        <div className="search" > 
+          <form role="search" className="form">
+            <div className="input">
+              <input className="form-control" type="search" name="b" onChange = {term => searchValue(term.target.value)}
                 placeholder="Buscar por región..." />
             </div>
           </form>
         </div>
-
         <div className="order">
-          <select name="Orden" className="custom-select col-md-1 mb-1" onChange = {val => orderValue(val.target.value)} >
+          <select name="orden" className="custom-select" onChange = {val => orderValue(val.target.value)} >
             <option className="d-none" >Orden</option> 
             <option value="precio">Precio</option> 
             <option value="dias">Días</option>
           </select>
         </div> 
-
         <div className="cards">
           {dataContainer.map(element => (
           <div className="card" style={{width:"18rem"}}>
             <img src = {element.principal_photo} className="card-img-top " alt="foto-principal" />
               <div className="card-body">
                 <h5 className="card-title">{element.name} - {element.city_names}</h5>
-                  <p className="activities">Actividades:
+                  <div className="activities">Actividades:
                     {element.activities.map(item => (
-                      <p>{item.name}</p>
+                      <span> {item.name},</span>
                     ))}
-                  </p>
-                    <p className="">Desde <span> s/.{element.price} </span></p>
-                    <p className="">{element.days_and_nights}</p>
+                  </div>
               </div> 
+              <div className="footer-container">
+                <div className="price-text">
+                <small className="">Desde</small>
+                </div>
+                  <div className="footer-card">
+                    <div className="day-card">
+                      <p className="day">{element.days_and_nights}</p>
+                    </div>
+                    <div className="price-card">
+                      <h3 className="price">s/.{element.price}</h3>
+                    </div>
+                  </div>
+              </div>
           </div> 
           ))} 
         </div>
       </>
-    );
+    )
   }
 
   const App = () => (
