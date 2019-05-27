@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 
   export const useFetch = (url, auth) => {
@@ -17,6 +17,6 @@ import React, { useState, useEffect } from 'react';
     return filtered;
   }
   
-  export const sortPrices = (data) => data.sort((aa,bb) => aa.price > bb.price ? 1 : -1);
+  export const sortPrices = (data) => data.sort((before,after) => before.price > after.price ? 1 : -1);
 
-  export const sortDays = (data) => data.sort((aa,bb) => aa.days_and_nights > bb.days_and_nights ? 1 : -1);
+  export const sortDays = (data) => data.sort((before,after) => before.days_and_nights > after.days_and_nights ? 1 : -1);
