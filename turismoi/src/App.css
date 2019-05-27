@@ -12,7 +12,7 @@
             width: 220px;
          }
          .form-control input{
-            border: none;
+            border: solid 1px white;
          }
          .fas{
             opacity: 0.5;
@@ -28,8 +28,8 @@
             flex-wrap: wrap;
             justify-content: center;
             margin-top: 10px;
-            margin-right: 5%;
-            margin-left: 5%;
+            margin-right: 0%;
+            margin-left: 0%;
          }
          .card{
             margin: 10px;

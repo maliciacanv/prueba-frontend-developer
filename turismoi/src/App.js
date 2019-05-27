@@ -1,4 +1,7 @@
 import React, { useState} from 'react';
+import LazyLoad from 'react-lazyload';
+
+import ImgLazyLoad from './component/lazyload';
 import './App.css';
 import { useFetch, sortPrices, sortDays, searchTour } from './component/functions'
   
@@ -11,7 +14,6 @@ import { useFetch, sortPrices, sortDays, searchTour } from './component/function
     
     const [termino, setTermino] = useState('');
     const [result, setResult] = useState([]);
-    const [valueSelect, setValueSelect] = useState('');
 
     const searchValue = (string) => {
         setResult(searchTour(string, data));
@@ -25,7 +27,6 @@ import { useFetch, sortPrices, sortDays, searchTour } from './component/function
       } else if(string === 'dias'){
         setResult(sortDays(data))
       }
-     setValueSelect(string)
     }
 
     return (
@@ -48,7 +49,14 @@ import { useFetch, sortPrices, sortDays, searchTour } from './component/function
         <div className="cards">
           {dataContainer.map(element => (
           <div className="card" style={{width:"18rem"}}>
+            <LazyLoad 
+            once
+            placeholder = { 
+            <ImgLazyLoad /> }
+            debounce = {100}
+            >
             <img src = {element.principal_photo} className="card-img-top " alt="foto-principal" />
+            </LazyLoad>
               <div className="card-body">
                 <h5 className="card-title">{element.name} - {element.city_names}</h5>
                   <div className="activities">Actividades:
