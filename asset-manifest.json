@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/prueba-frontend-developer/static/css/main.2e960c45.chunk.css",
+    "main.js": "/prueba-frontend-developer/static/js/main.e8ac059f.chunk.js",
+    "main.js.map": "/prueba-frontend-developer/static/js/main.e8ac059f.chunk.js.map",
+    "runtime~main.js": "/prueba-frontend-developer/static/js/runtime~main.2523e7f7.js",
+    "runtime~main.js.map": "/prueba-frontend-developer/static/js/runtime~main.2523e7f7.js.map",
+    "static/js/2.c8ac3f43.chunk.js": "/prueba-frontend-developer/static/js/2.c8ac3f43.chunk.js",
+    "static/js/2.c8ac3f43.chunk.js.map": "/prueba-frontend-developer/static/js/2.c8ac3f43.chunk.js.map",
+    "index.html": "/prueba-frontend-developer/index.html",
+    "precache-manifest.630df48dab429b681202f9f1fda2add3.js": "/prueba-frontend-developer/precache-manifest.630df48dab429b681202f9f1fda2add3.js",
+    "service-worker.js": "/prueba-frontend-developer/service-worker.js",
+    "static/css/main.2e960c45.chunk.css.map": "/prueba-frontend-developer/static/css/main.2e960c45.chunk.css.map"
+  }
+}
