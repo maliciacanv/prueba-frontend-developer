@@ -55,7 +55,7 @@ import { useFetch, sortPrices, sortDays, searchTour } from './component/function
             once
             placeholder = { 
             <ImgLazyLoad /> }
-            debounce = {600}
+            debounce = {300}
             >
             <img src = {element.principal_photo} className="card-img-top " alt="foto-principal" />
             </LazyLoad>
