@@ -18,10 +18,13 @@
             .form-control{
                border-radius: 50px;
                margin: auto;
-               width: 220px;
+               width: 230px;
+
+
             }
-            .form-control input{
-               border: solid 1px white;
+            .input{
+               border: 1px solid white;
+               width: 80%;
             }
             .fas{
                opacity: 0.5;

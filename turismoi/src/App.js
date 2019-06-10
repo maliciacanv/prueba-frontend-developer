@@ -38,7 +38,7 @@ import { useFetch, sortPrices, sortDays, searchTour } from './component/function
             <div className="form-control">
               <input className="input" type="text" onChange = {term => searchValue(term.target.value)}
                 placeholder="Buscar por región..." /><i className="fas fa-search"></i>
-            </div>
+           </div>
           </form>
         </div>
         <div className="order">
